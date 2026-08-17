@@ -17,7 +17,7 @@ const { title, currentSlug, headings } = Astro.props;
   <div class="px-6 grid grid-cols-1 lg:grid-cols-[300px_1fr_300px] gap-10 items-start">
     
     <!-- Columna 1: Menú Lateral Izquierdo -->
-    <nav class="lg:sticky lg:top-[90px] h-[calc(100vh-100px)] overflow-y-auto text-[14.5px] pr-2 custom-scrollbar">
+    <nav class="lg:sticky lg:top-22.5 h-[calc(100vh-100px)] overflow-y-auto text-[14.5px] pr-2 custom-scrollbar">
       <Sidebar currentSlug={currentSlug} />
     </nav>
 
@@ -27,7 +27,7 @@ const { title, currentSlug, headings } = Astro.props;
     </main>
 
     <!-- Columna 3: Índice Ancla Derecho (TOC) -->
-    <aside class="lg:sticky lg:top-[90px] h-[calc(100vh-100px)] overflow-y-auto text-[13.5px] pl-2 custom-scrollbar">
+    <aside class="lg:sticky lg:top-22.5 h-[calc(100vh-100px)] overflow-y-auto text-[13.5px] pl-2 custom-scrollbar">
       <TableOfContents headings={headings} />
     </aside>
 
