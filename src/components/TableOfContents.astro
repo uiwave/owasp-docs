@@ -1,0 +1,33 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+// Filtrar solo encabezados H2 y H3 para la tabla de contenidos
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  filteredHeadings.length === 0 ? (
+    <p class="font-script text-xl text-text-secondary">
+      Sin secciones definidas
+    </p>
+  ) : (
+    <div class="space-y-2">
+      {filteredHeadings.map((heading) => (
+        <a
+          href={`#${heading.slug}`}
+          class:list={[
+            "block text-ink2 hover:text-ink",
+            { "pl-4": heading.depth === 3, "pl-0": heading.depth === 2 },
+          ]}
+        >
+          {heading.text}
+        </a>
+      ))}
+    </div>
+  )
+}

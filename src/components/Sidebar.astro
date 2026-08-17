@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const allDocs = await getCollection("docs");
+
+function cleanSegment(segment: string) {
+  return segment.replace(/^\d+-/, "");
+}
+
+interface GroupedDoc {
+  cleanSlug: string;
+  title: string;
+  folderClean: string;
+}
+
+const groups: Record<string, GroupedDoc[]> = {};
+
+allDocs.forEach((doc) => {
+  // Usamos doc.id en lugar de doc.slug
+  const identifier = doc.id || "";
+  const parts = identifier.replace(/\.mdx?$/, "").split("/");
+
+  if (parts.length > 1) {
+    const rawFolder = parts[0];
+    const folderClean = cleanSegment(rawFolder);
+    const cleanSlug = parts.map(cleanSegment).join("/");
+
+    if (!groups[folderClean]) {
+      groups[folderClean] = [];
+    }
+
+    groups[folderClean].push({
+      cleanSlug,
+      title: doc.data.title,
+      folderClean,
+    });
+  }
+});
+---
+
+{
+  Object.entries(groups).map(([folderName, items]) => (
+    <div>
+      <div class="font-hand font-bold text-[12px] uppercase tracking-wide text-ink mb-2">
+        {folderName}
+      </div>
+      <div class="space-y-0.5">
+        {items.map((item) => {
+          const isActive = currentSlug === item.cleanSlug;
+          return (
+            <a
+              href={`/docs/${item.cleanSlug}`}
+              class={`block w-full text-left py-1 pl-3 border-l-2 ${
+                isActive ? "" : "text-ink2 border-transparent hover:text-ink"
+              }`}
+            >
+              {item.title}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  ))
+}

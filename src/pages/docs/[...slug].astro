@@ -1,0 +1,73 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('docs');
+
+  if (!docs || docs.length === 0) {
+    return [];
+  }
+
+  const cleanSegment = (segment: string) => segment.replace(/^\d+-/, '');
+
+  const getCleanSlug = (entryKey: string) => 
+    entryKey.replace(/\.mdx?$/, '').split('/').map(cleanSegment).join('/');
+
+  // 1. Rutas para cada archivo Markdown
+  const docPaths = docs.map((doc) => {
+    const cleanSlug = getCleanSlug(doc.id);
+    return {
+      params: { slug: cleanSlug },
+      props: { doc, isFolderRedirect: false, redirectTo: '' },
+    };
+  });
+
+  // 2. Rutas de carpetas (Redirecciones)
+  const folders = new Set<string>();
+  docs.forEach((doc) => {
+    const parts = doc.id.split('/');
+    if (parts.length > 1) {
+      folders.add(parts[0]);
+    }
+  });
+
+  const folderRedirects = Array.from(folders).map((rawFolder) => {
+    const cleanFolder = cleanSegment(rawFolder);
+    const folderDocs = docs.filter((d) => d.id.startsWith(rawFolder));
+    folderDocs.sort((a, b) => a.id.localeCompare(b.id));
+
+    const firstDocCleanSlug = getCleanSlug(folderDocs[0].id);
+
+    return {
+      params: { slug: cleanFolder },
+      props: { doc: null, isFolderRedirect: true, redirectTo: `/docs/${firstDocCleanSlug}` },
+    };
+  });
+
+  return [...docPaths, ...folderRedirects];
+}
+
+const { doc, isFolderRedirect, redirectTo } = Astro.props;
+
+// 1. Si es redirección de carpeta, redirige inmediatamente
+if (isFolderRedirect && redirectTo) {
+  return Astro.redirect(redirectTo);
+}
+
+// 2. Control de seguridad para TypeScript si doc llega nulo por alguna razón
+if (!doc) {
+  return Astro.redirect('/404');
+}
+
+// 3. Ahora TypeScript garantiza al 100% que `doc` no es null
+const { Content, headings } = await render(doc);
+const cleanSlug = doc.id.replace(/\.mdx?$/, '').split('/').map((s: string) => s.replace(/^\d+-/, '')).join('/');
+---
+
+<DocsLayout title={doc.data.title} currentSlug={cleanSlug} headings={headings}>
+  <div class="prose max-w-none">
+    <h1>{doc.data.title}</h1>
+    <Content />
+  </div>
+</DocsLayout>
