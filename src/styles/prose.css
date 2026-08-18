@@ -1,0 +1,232 @@
+/* Configuración de las clases prose (contenido Markdown) con el tema de la libreta */
+
+/* Escala de ritmo del contenido (em: escala con el tamaño de fuente) */
+.prose {
+  --prose-space-xs: 0.4em;
+  --prose-space-sm: 0.75em;
+  --prose-space-md: 1.5em;
+  --prose-space-lg: 2.5em;
+  --prose-space-xl: 3.5em;
+}
+
+/* Colores del contenido */
+.prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-main);
+  --tw-prose-lead: var(--text-muted);
+  --tw-prose-links: var(--accent-red);
+  --tw-prose-bold: var(--text-main);
+  --tw-prose-counters: var(--accent-amber);
+  --tw-prose-bullets: var(--accent-red);
+  --tw-prose-hr: var(--border-grid);
+  --tw-prose-quotes: var(--text-muted);
+  --tw-prose-quote-borders: var(--accent-amber);
+  --tw-prose-captions: var(--text-muted);
+  --tw-prose-code: var(--accent-red);
+  --tw-prose-pre-code: var(--text-secondary);
+  --tw-prose-pre-bg: var(--bg-surface);
+  --tw-prose-th-borders: var(--border-grid);
+  --tw-prose-td-borders: var(--border-grid);
+  --tw-prose-kbd: var(--text-main);
+  --tw-prose-kbd-shadows: var(--border-margin);
+}
+
+/* Párrafos */
+.prose :where(p) {
+  margin: var(--prose-space-md) 0;
+  line-height: 1.8;
+}
+
+/* Párrafo de introducción (lead) */
+.prose :where(h1 + p) {
+  color: var(--text-muted);
+  font-size: 1.125em;
+}
+
+/* Jerarquía de títulos */
+.prose :where(h1, h2, h3, h4, h5) {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  scroll-margin-top: 5.5rem;
+}
+
+.prose :where(h1) {
+  margin: 0 0 var(--prose-space-sm);
+  font-size: 2.25em;
+}
+
+.prose :where(h2) {
+  margin: var(--prose-space-xl) 0 var(--prose-space-sm);
+  padding-bottom: 0.35em;
+  border-bottom: 2px dashed var(--border-grid);
+  font-size: 1.75em;
+}
+
+.prose :where(h3) {
+  margin: var(--prose-space-lg) 0 var(--prose-space-xs);
+  font-size: 1.375em;
+}
+
+.prose :where(h4) {
+  margin: var(--prose-space-lg) 0 var(--prose-space-xs);
+  font-size: 1.125em;
+}
+
+.prose :where(h5) {
+  margin: var(--prose-space-md) 0 var(--prose-space-xs);
+  font-size: 1em;
+}
+
+/* Enlaces */
+.prose :where(a) {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* Énfasis */
+.prose :where(strong) {
+  font-weight: 700;
+}
+
+.prose :where(em) {
+  font-style: italic;
+}
+
+/* Listas */
+.prose :where(ul, ol) {
+  margin: var(--prose-space-md) 0;
+}
+
+.prose :where(ul ul, ul ol, ol ul, ol ol) {
+  margin-top: var(--prose-space-xs);
+}
+
+.prose :where(li) {
+  margin: var(--prose-space-xs) 0;
+}
+
+.prose :where(li > p) {
+  margin: var(--prose-space-xs) 0;
+}
+
+.prose li::marker {
+  font-weight: 700;
+}
+
+/* Código en línea */
+.prose :where(code):not(:where(pre code, pre)) {
+  background-color: color-mix(in srgb, var(--accent-red) 10%, transparent);
+  border-radius: 0.375rem;
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+/* Bloques de código */
+.prose :where(pre) {
+  background-color: var(--tw-prose-pre-bg);
+  border: 1px solid var(--border-grid);
+  border-radius: 0.75rem;
+  padding: var(--space-5) var(--space-6);
+  box-shadow: var(--shadow-soft);
+  font-size: 0.875em;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.prose :where(pre)::-webkit-scrollbar {
+  height: 8px;
+}
+
+.prose :where(pre)::-webkit-scrollbar-thumb {
+  background-color: var(--border-grid);
+  border-radius: 4px;
+}
+
+.prose :where(pre code) {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-weight: 400;
+}
+
+/* Citas */
+.prose :where(blockquote) {
+  margin: var(--prose-space-lg) 0;
+  padding: var(--space-2) var(--space-5);
+  border-left: 4px solid var(--accent-amber);
+  border-radius: 0 0.75rem 0.75rem 0;
+  background-color: color-mix(in srgb, var(--accent-amber) 7%, transparent);
+  font-style: italic;
+}
+
+/* Separadores */
+.prose :where(hr) {
+  margin: var(--prose-space-xl) 0;
+  border-top: 2px dashed var(--border-grid);
+}
+
+/* Tablas */
+.prose :where(table) {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  margin: var(--prose-space-lg) 0;
+  box-shadow: var(--shadow-soft);
+}
+
+.prose :where(th) {
+  background-color: var(--bg-surface);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-grid);
+  font-weight: 700;
+  text-align: left;
+}
+
+.prose :where(td) {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-grid);
+}
+
+/* Teclas */
+.prose :where(kbd) {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-grid);
+  border-radius: 0.375rem;
+  padding: 0.15em 0.45em;
+  font-size: 0.85em;
+  box-shadow: var(--tw-prose-kbd-shadows);
+}
+
+/* Imágenes y figuras */
+.prose :where(img) {
+  border: 1px solid var(--border-grid);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.prose :where(figure) {
+  margin: var(--prose-space-lg) 0;
+}
+
+.prose :where(figcaption) {
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+.prose :where(iframe) {
+  border-radius: 0.75rem;
+}
+
+/* Bordes de inicio/fin del contenido */
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}

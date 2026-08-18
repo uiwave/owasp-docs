@@ -51,24 +51,24 @@ allDocs.forEach((doc) => {
       );
       return (
         <details class="group" open={hasActiveChild}>
-          <summary class="text-ink hover:text-ink/80 font-hand flex cursor-pointer list-none items-center justify-between px-1 py-1 text-lg font-bold tracking-wider uppercase transition-colors select-none">
+          <summary class="text-text-main hover:text-accent-red font-hand flex cursor-pointer list-none items-center justify-between px-2 py-2 text-base font-bold tracking-widest uppercase transition-colors select-none">
             <span>{folderName}</span>
             <span class="text-xs opacity-60 transition-transform duration-200 group-open:rotate-180">
               ▼
             </span>
           </summary>
 
-          <ul class="space-y-1.5 pl-5 pt-1">
+          <ul class="border-border-grid ml-2 space-y-1.5 border-l-2 pl-4 pt-1.5">
             {items.map((item) => {
               const isActive = currentSlug === item.cleanSlug;
               return (
                 <li>
                   <a
                     href={`/${item.cleanSlug}`}
-                    class={`block py-1 text-sm leading-snug transition-colors duration-150 md:text-base ${
+                    class={`block rounded-md py-1 text-sm leading-snug transition-colors duration-150 hover:text-accent-red md:text-base ${
                       isActive
-                        ? "text-ink font-bold underline decoration-2 underline-offset-4"
-                        : "text-ink2 hover:text-ink"
+                        ? "text-accent-red decoration-accent-red font-bold underline decoration-2 underline-offset-4"
+                        : "text-text-muted"
                     }`}
                   >
                     <span class="block">{item.title}</span>

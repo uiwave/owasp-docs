@@ -3,7 +3,7 @@
 ---
 
 <header
-  class="bg-bg-main/90 border-border-grid sticky top-0 z-40 flex items-center justify-between border-b p-4 backdrop-blur-sm lg:px-6"
+  class="bg-bg-main/90 border-border-grid sticky top-0 z-40 flex h-16 items-center justify-between border-b p-4 backdrop-blur-sm lg:h-18 lg:px-6"
 >
   <div class="flex items-center gap-3">
     <!-- Botón Menú Lateral (Móvil) -->
@@ -11,7 +11,7 @@
       id="toggle-sidebar"
       type="button"
       aria-label="Abrir navegación"
-      class="text-text-main border-border-grid rounded-md border p-2 transition-colors hover:bg-black/5 lg:hidden dark:hover:bg-white/5"
+      class="text-text-main border-border-grid rounded-md border p-2.5 transition-colors hover:bg-border-grid/40 lg:hidden"
     >
       <svg
         class="h-5 w-5"
@@ -29,7 +29,7 @@
 
     <a href="/dashboard" class="flex items-center">
       <div
-        class="font-script text-text-main -rotate-1 text-[28px] leading-none font-bold lg:text-[30px]"
+        class="font-script text-text-main -rotate-1 text-3xl leading-none font-bold"
       >
         OWASP
       </div>
@@ -41,7 +41,7 @@
     id="toggle-toc"
     type="button"
     aria-label="Abrir tabla de contenidos"
-    class="text-text-main border-border-grid flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors hover:bg-black/5 lg:hidden dark:hover:bg-white/5"
+    class="text-text-main border-border-grid flex items-center gap-1.5 rounded-md border px-3 py-2 text-sm font-semibold tracking-wide transition-colors hover:bg-border-grid/40 lg:hidden"
   >
     <span>En este artículo</span>
     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@
 <!-- Overlay para los drawers móviles -->
 <div
   id="mobile-backdrop"
-  class="pointer-events-none fixed inset-0 z-40 bg-black/50 opacity-0 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
+  class="pointer-events-none fixed inset-0 z-40 bg-text-main/50 opacity-0 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
 >
 </div>
 

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "./prose.css";
 
 /* Fuentes locales */
 @font-face {
@@ -42,62 +43,100 @@
   font-display: swap;
 }
 
+/* Paleta de colores del tema (estética libreta) */
+:root {
+  --bg-main: #fbf7ec;
+  --bg-surface: #f6f0dd;
+  --border-grid: #c9d8e8;
+  --border-margin: #e0847a;
+  --text-main: #2e3d63;
+  --text-muted: #42537d;
+  --text-secondary: #4a4a46;
+
+  --accent-red: #c4453b;
+  --accent-green: #3e7a4e;
+  --accent-amber: #c67b1e;
+  --accent-teal: #2c8b84;
+  --accent-yellow: #f5e27a;
+
+  --shadow-soft: 0 10px 30px -12px rgb(46 61 99 / 0.18);
+  --shadow-lift: 0 16px 40px -16px rgb(46 61 99 / 0.25);
+
+  /* Escala de espaciado global */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-7: 3.5rem;
+}
+
 /* Configuración del tema dinámico en Tailwind v4 */
 @theme inline {
   --font-hand: "Kalam", cursive;
   --font-write: "Patrick Hand", cursive;
   --font-script: "Caveat", cursive;
 
-  --color-bg-main: #fbf7ec;
-  --color-bg-surface: #f6f0dd;
-  --color-border-grid: #c9d8e8;
-  --color-border-margin: #e0847a;
-  --color-text-main: #2e3d63;
-  --color-text-muted: #42537d;
-  --color-text-secondary: #4a4a46;
+  --color-bg-main: var(--bg-main);
+  --color-bg-surface: var(--bg-surface);
+  --color-border-grid: var(--border-grid);
+  --color-border-margin: var(--border-margin);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-text-secondary: var(--text-secondary);
 
-  --color-accent-red: #c4453b;
-  --color-accent-green: #3e7a4e;
-  --color-accent-amber: #c67b1e;
-  --color-accent-teal: #2c8b84;
-  --color-accent-yellow: #f5e27a;
+  --color-accent-red: var(--accent-red);
+  --color-accent-green: var(--accent-green);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-teal: var(--accent-teal);
+  --color-accent-yellow: var(--accent-yellow);
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
 }
 
 @layer base {
   body {
-    @apply font-write text-text-main relative min-h-screen text-[19px] leading-relaxed antialiased;
-    background-color: var(--color-bg-main);
+    @apply font-write text-text-main text-lg leading-relaxed tracking-[0.01em] relative min-h-screen antialiased;
+    background-color: var(--bg-main);
     background-image:
-      linear-gradient(var(--color-border-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-border-grid) 1px, transparent 1px);
+      linear-gradient(var(--border-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-grid) 1px, transparent 1px);
     background-size: 26px 26px;
+  }
+
+  ::selection {
+    background-color: var(--accent-yellow);
+    color: var(--text-main);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-red);
+    outline-offset: 2px;
   }
 }
 
 /* Scrollbar personalizado estilo libreta/lápiz */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
-  /* Ancho fino para que no estorbe */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
-  /* Fondo transparente */
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--color-border-grid, #c9d8e8);
-  /* Color suave de las líneas */
+  background-color: var(--border-grid);
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-border-margin, #e0847a);
-  /* Cambia al color del margen al pasar el mouse */
+  background-color: var(--border-margin);
 }
 
 /* Soporte para Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border-grid, #c9d8e8) transparent;
+  scrollbar-color: var(--border-grid) transparent;
 }
