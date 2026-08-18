@@ -83,6 +83,7 @@
 .prose :where(a) {
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
+  overflow-wrap: break-word;
 }
 
 /* Énfasis */
@@ -122,6 +123,7 @@
   padding: 0.15em 0.4em;
   font-size: 0.875em;
   font-weight: 500;
+  overflow-wrap: break-word;
 }
 
 /* Bloques de código */
@@ -190,6 +192,7 @@
 .prose :where(td) {
   padding: var(--space-2) var(--space-4);
   border: 1px solid var(--border-grid);
+  overflow-wrap: break-word;
 }
 
 /* Teclas */

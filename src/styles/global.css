@@ -97,6 +97,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply font-write text-text-main text-lg leading-relaxed tracking-[0.01em] relative min-h-screen antialiased;
     background-color: var(--bg-main);

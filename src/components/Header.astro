@@ -64,55 +64,63 @@
 <script>
   import { $ } from "@/lib/dom";
 
-  const sidebar = $<HTMLElement>("#sidebar-drawer");
-  const toc = $<HTMLElement>("#toc-drawer");
-  const backdrop = $<HTMLElement>("#mobile-backdrop");
+  function initDrawers() {
+    const sidebar = $<HTMLElement>("#sidebar-drawer");
+    const toc = $<HTMLElement>("#toc-drawer");
+    const backdrop = $<HTMLElement>("#mobile-backdrop");
 
-  const toggleSidebarBtn = $<HTMLElement>("#toggle-sidebar");
-  const toggleTocBtn = $<HTMLElement>("#toggle-toc");
-  const closeSidebarBtn = $<HTMLElement>("#close-sidebar");
-  const closeTocBtn = $<HTMLElement>("#close-toc");
+    const toggleSidebarBtn = $<HTMLElement>("#toggle-sidebar");
+    const toggleTocBtn = $<HTMLElement>("#toggle-toc");
+    const closeSidebarBtn = $<HTMLElement>("#close-sidebar");
+    const closeTocBtn = $<HTMLElement>("#close-toc");
 
-  function openSidebar() {
-    closeToc();
-    sidebar?.classList.remove("-translate-x-full");
-    backdrop?.classList.remove("opacity-0", "pointer-events-none");
-  }
+    function openSidebar() {
+      closeToc();
+      sidebar?.classList.remove("-translate-x-full");
+      backdrop?.classList.remove("opacity-0", "pointer-events-none");
+    }
 
-  function closeSidebar() {
-    sidebar?.classList.add("-translate-x-full");
-    if (toc?.classList.contains("-translate-y-full")) {
+    function closeSidebar() {
+      sidebar?.classList.add("-translate-x-full");
+      if (toc?.classList.contains("-translate-y-full")) {
+        backdrop?.classList.add("opacity-0", "pointer-events-none");
+      }
+    }
+
+    function openToc() {
+      closeSidebar();
+      toc?.classList.remove(
+        "-translate-y-full",
+        "opacity-0",
+        "pointer-events-none",
+      );
+      backdrop?.classList.remove("opacity-0", "pointer-events-none");
+    }
+
+    function closeToc() {
+      toc?.classList.add(
+        "-translate-y-full",
+        "opacity-0",
+        "pointer-events-none",
+      );
       backdrop?.classList.add("opacity-0", "pointer-events-none");
     }
-  }
 
-  function openToc() {
-    closeSidebar();
-    toc?.classList.remove(
-      "-translate-y-full",
-      "opacity-0",
-      "pointer-events-none",
-    );
-    backdrop?.classList.remove("opacity-0", "pointer-events-none");
-  }
-
-  function closeToc() {
-    toc?.classList.add("-translate-y-full", "opacity-0", "pointer-events-none");
-    backdrop?.classList.add("opacity-0", "pointer-events-none");
-  }
-
-  toggleSidebarBtn?.addEventListener("click", openSidebar);
-  closeSidebarBtn?.addEventListener("click", closeSidebar);
-  toggleTocBtn?.addEventListener("click", () => {
-    if (toc?.classList.contains("-translate-y-full")) {
-      openToc();
-    } else {
+    toggleSidebarBtn?.addEventListener("click", openSidebar);
+    closeSidebarBtn?.addEventListener("click", closeSidebar);
+    toggleTocBtn?.addEventListener("click", () => {
+      if (toc?.classList.contains("-translate-y-full")) {
+        openToc();
+      } else {
+        closeToc();
+      }
+    });
+    closeTocBtn?.addEventListener("click", closeToc);
+    backdrop?.addEventListener("click", () => {
+      closeSidebar();
       closeToc();
-    }
-  });
-  closeTocBtn?.addEventListener("click", closeToc);
-  backdrop?.addEventListener("click", () => {
-    closeSidebar();
-    closeToc();
-  });
+    });
+  }
+
+  document.addEventListener("astro:page-load", initDrawers);
 </script>
