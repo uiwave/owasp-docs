@@ -1,5 +1,5 @@
 ---
-
+import pkg from "../../package.json";
 ---
 
 <header
@@ -33,6 +33,14 @@
       >
         OWASP
       </div>
+    </a>
+
+    <a
+      href="/historial"
+      title="Historial de versiones"
+      class="border-border-grid text-text-muted font-hand hover:bg-border-grid/40 rounded-md border px-1.5 py-0.5 text-[11px] leading-none font-bold tracking-wide transition-colors"
+    >
+      v{pkg.version}
     </a>
   </div>
 

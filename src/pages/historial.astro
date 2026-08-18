@@ -1,0 +1,112 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { changelog } from "../data/changelog";
+
+const formatDate = (iso: string) =>
+  new Intl.DateTimeFormat("es-PE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(`${iso}T00:00:00`));
+
+const sectionStyles = {
+  added: {
+    label: "Añadido",
+    text: "text-accent-teal",
+    dot: "bg-accent-teal",
+  },
+  changed: {
+    label: "Cambiado",
+    text: "text-accent-amber",
+    dot: "bg-accent-amber",
+  },
+  fixed: {
+    label: "Corregido",
+    text: "text-accent-red",
+    dot: "bg-accent-red",
+  },
+} as const;
+---
+
+<MainLayout title="Historial de versiones">
+  <main class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <h1
+      class="font-hand text-text-main mb-2 text-4xl font-bold tracking-wide sm:text-5xl"
+    >
+      Historial de versiones
+    </h1>
+    <p class="font-write text-text-muted mb-10 text-lg italic">
+      Registro de los cambios publicados del proyecto, ordenados del más
+      reciente al más antiguo.
+    </p>
+
+    <p class="font-write text-text-muted mb-8 text-sm">
+      Este proyecto sigue <strong>Semantic Versioning</strong> (semver) y el
+      formato <strong>Keep a Changelog</strong>. Cada versión publicada
+      corresponde a un tag semver del repositorio (<code>v1.0.0</code>).
+    </p>
+
+    <div class="space-y-8">
+      {changelog.map((entry) => (
+        <section
+          class="border-border-grid shadow-soft bg-bg-surface rounded-2xl border-2 p-6 sm:p-8"
+        >
+          <div class="mb-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h2
+              class="font-hand text-text-main text-2xl font-bold tracking-wide"
+            >
+              v{entry.version}
+            </h2>
+            <span class="font-write text-text-muted text-sm italic">
+              {formatDate(entry.date)}
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            {(["added", "changed", "fixed"] as const).map((section) => {
+              const items = entry[section];
+              if (!items || items.length === 0) return null;
+              const style = sectionStyles[section];
+              return (
+                <div>
+                  <p
+                    class:list={[
+                      "font-hand mb-1 text-sm font-bold tracking-widest uppercase",
+                      style.text,
+                    ]}
+                  >
+                    {style.label}
+                  </p>
+                  <ul class="space-y-1.5">
+                    {items.map((item) => (
+                      <li
+                        class="font-write text-text-secondary flex items-start gap-2.5 text-[15px] leading-snug"
+                      >
+                        <span
+                          class:list={[
+                            "mt-[7px] inline-block h-2 w-2 shrink-0 rounded-full",
+                            style.dot,
+                          ]}
+                        ></span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <div class="mt-10 text-center">
+      <a
+        href="/recursos"
+        class="font-hand bg-accent-yellow hover:bg-accent-teal text-text-main border-border-grid shadow-soft hover:shadow-lift inline-block rounded-xl border-2 px-8 py-3 text-xl font-bold transition-all hover:scale-105 hover:text-bg-main"
+      >
+        ← Volver a la documentación
+      </a>
+    </div>
+  </main>
+</MainLayout>
