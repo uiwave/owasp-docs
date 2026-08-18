@@ -8,6 +8,21 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: "1.1.0",
+    date: "2026-08-18",
+    added: [
+      "Documentación completa del OWASP ASVS 4.0.3: inicio, introducción (4 guías), 14 capítulos (V1–V14) con los ~300 requisitos explicados uno por uno, y apéndices (glosario, referencias e IoT).",
+      "Sección OWASP Top 10 (2021): 10 guías (A01–A10) con escenarios de ataque, medidas de prevención y enlaces cruzados a los capítulos ASVS relacionados.",
+    ],
+    changed: [
+      "El sitio documenta ahora exclusivamente el ASVS 4.0.3 (antes: Top 10 general).",
+      "Enlace de navegación de la documentación actualizado de /recursos a /inicio en las páginas principal, de políticas e historial.",
+    ],
+    fixed: [
+      "Sidebar y tabla de contenidos pegados al borde inferior del viewport: ahora mantienen una separación inferior de 16 px.",
+    ],
+  },
+  {
     version: "1.0.0",
     date: "2026-08-18",
     added: [

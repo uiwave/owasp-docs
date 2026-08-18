@@ -11,6 +11,31 @@ Cada versión publicada corresponde a un tag de git (`vX.Y.Z`).
 ### Added
 - (próximos cambios sin publicar)
 
+## [1.1.0] - 2026-08-18
+
+Documentación reescrita en su totalidad: el sitio ahora está dedicado al
+estándar OWASP ASVS 4.0.3 (antes documentaba el Top 10 general), e incluye la
+nueva sección OWASP Top 10 2021 con enlaces cruzados.
+
+### Added
+
+- Documentación completa del OWASP ASVS 4.0.3: inicio, introducción (4 guías),
+  14 capítulos (V1–V14) con los ~300 requisitos explicados uno por uno, y
+  apéndices (glosario, referencias e IoT).
+- Sección OWASP Top 10 (2021): 10 guías (A01–A10) con escenarios de ataque,
+  medidas de prevención y enlaces cruzados a los capítulos ASVS relacionados.
+
+### Changed
+
+- El sitio documenta ahora exclusivamente el ASVS 4.0.3 (antes: Top 10 general).
+- Enlace de navegación de la documentación actualizado de `/recursos` a
+  `/inicio` en las páginas principal, de políticas e historial.
+
+### Fixed
+
+- Sidebar y tabla de contenidos pegados al borde inferior del viewport: ahora
+  mantienen una separación inferior de 16 px.
+
 ## [1.0.0] - 2026-08-18
 
 Primera versión de publicación. Documentación del OWASP Top 10 elaborada con
@@ -43,4 +68,5 @@ fines académicos (tesis universitaria).
 - Espaciado inconsistente entre el encabezado y el contenido del sidebar.
 - Archivo de contenido dañado en la colección de documentación.
 
+[1.1.0]: https://github.com/usuario/proyecto/releases/tag/v1.1.0
 [1.0.0]: https://github.com/usuario/proyecto/releases/tag/v1.0.0
