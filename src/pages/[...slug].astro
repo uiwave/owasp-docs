@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import DocsLayout from "@/layouts/DocsLayout.astro";
+import Footer from "@/components/Footer.astro";
 
 export async function getStaticPaths() {
   const docs = await getCollection("docs");
@@ -82,4 +83,5 @@ const cleanSlug = doc.id
     <h1>{doc.data.title}</h1>
     <Content />
   </div>
+  <Footer />
 </DocsLayout>
