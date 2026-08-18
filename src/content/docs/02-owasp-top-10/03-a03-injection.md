@@ -8,6 +8,7 @@ description: "Análisis detallado de ataques por inyección: SQL, NoSQL, Command
 Ocurre cuando se manipulan consultas a bases de datos relacionales (PostgreSQL, MySQL, SQL Server, Oracle).
 
 ### 📹 Video Explicativo: Visualizando SQL Injection
+
 Para entender de manera práctica cómo se explota esta vulnerabilidad en tiempo real, mira la siguiente explicación paso a paso:
 
 <div class="my-6 aspect-video w-full overflow-hidden rounded-lg border-2 border-border-grid shadow-md">
@@ -22,8 +23,10 @@ Para entender de manera práctica cómo se explota esta vulnerabilidad en tiempo
 </div>
 
 ### Ejemplo de Vulnerabilidad
+
 Imagina un formulario de inicio de sesión con el siguiente código backend:
 
 ```javascript
 // CÓDIGO VULNERABLE: Concatena la variable directamente en la consulta
 const query = `SELECT * FROM usuarios WHERE email = '${req.body.email}' AND password = '${req.body.password}'`;
+```

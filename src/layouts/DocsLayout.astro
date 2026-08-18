@@ -14,22 +14,34 @@ const { title, currentSlug, headings } = Astro.props;
 ---
 
 <MainLayout title={title}>
-  <div class="px-6 grid grid-cols-1 lg:grid-cols-[300px_1fr_300px] gap-10 items-start">
-    
-    <!-- Columna 1: Menú Lateral Izquierdo -->
-    <nav class="lg:sticky lg:top-22.5 h-[calc(100vh-100px)] overflow-y-auto text-[14.5px] pr-2 custom-scrollbar">
+  <div
+    class="grid grid-cols-1 items-start gap-20 px-4 lg:grid-cols-[280px_1fr_260px] lg:px-6"
+  >
+    <aside
+      id="sidebar-drawer"
+      class="bg-bg-main custom-scrollbar border-border-grid fixed inset-y-0 left-0 z-50 w-72 -translate-x-full transform overflow-y-auto border-r p-6 text-[14.5px] transition-transform duration-300 ease-in-out lg:sticky lg:top-20 lg:z-auto lg:h-[calc(100vh-90px)] lg:w-auto lg:translate-x-0 lg:border-r-2 lg:border-accent-red lg:bg-transparent lg:p-0 lg:pr-6"
+    >
+      <div class="mb-4 flex items-center justify-between lg:hidden">
+        <span class="text-text-main text-base font-bold">Navegación</span>
+        <button id="close-sidebar" class="text-text-main p-1">✕</button>
+      </div>
       <Sidebar currentSlug={currentSlug} />
-    </nav>
-
-    <!-- Columna 2: Contenido Principal (Markdown) -->
-    <main class="min-w-0 pb-12">
-      <slot />
-    </main>
-
-    <!-- Columna 3: Índice Ancla Derecho (TOC) -->
-    <aside class="lg:sticky lg:top-22.5 h-[calc(100vh-100px)] overflow-y-auto text-[13.5px] pl-2 custom-scrollbar">
-      <TableOfContents headings={headings} />
     </aside>
 
+    <main class="min-w-0 py-6 lg:py-8">
+      <slot />
+    </main>
+    <aside
+      id="toc-drawer"
+      class="bg-bg-main custom-scrollbar border-border-grid pointer-events-none fixed inset-x-0 top-16 z-50 max-h-[70vh] -translate-y-full transform overflow-y-auto border-b p-6 text-[13.5px] opacity-0 shadow-xl transition-all duration-300 ease-in-out lg:pointer-events-auto lg:sticky lg:top-20 lg:z-auto lg:h-[calc(100vh-90px)] lg:max-h-none lg:translate-y-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none"
+    >
+      <div class="mb-4 flex items-center justify-between lg:hidden">
+        <span class="text-text-main text-xs font-bold tracking-wider uppercase"
+          >Índice del contenido</span
+        >
+        <button id="close-toc" class="text-text-main p-1">✕</button>
+      </div>
+      <TableOfContents headings={headings} />
+    </aside>
   </div>
 </MainLayout>

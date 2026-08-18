@@ -6,28 +6,32 @@ interface Props {
 }
 
 const { headings } = Astro.props;
-// Filtrar solo encabezados H2 y H3 para la tabla de contenidos
+
+// Filtrar solo encabezados H2 y H3
 const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
 {
   filteredHeadings.length === 0 ? (
-    <p class="font-script text-xl text-text-secondary">
-      Sin secciones definidas
-    </p>
+    <p class="font-hand text-ink2 text-base italic">Sin secciones definidas</p>
   ) : (
-    <div class="space-y-2">
-      {filteredHeadings.map((heading) => (
-        <a
-          href={`#${heading.slug}`}
-          class:list={[
-            "block text-ink2 hover:text-ink",
-            { "pl-4": heading.depth === 3, "pl-0": heading.depth === 2 },
-          ]}
-        >
-          {heading.text}
-        </a>
-      ))}
-    </div>
+    <nav class="space-y-1.5">
+      {filteredHeadings.map((heading) => {
+        const isH3 = heading.depth === 3;
+        return (
+          <a
+            href={`#${heading.slug}`}
+            class:list={[
+              "text-ink2 hover:text-ink block leading-snug transition-colors duration-150",
+              isH3
+                ? "pl-6 text-xs md:text-sm"
+                : "text-ink pl-0 text-sm font-semibold md:text-base",
+            ]}
+          >
+            <span class="block truncate">{heading.text}</span>
+          </a>
+        );
+      })}
+    </nav>
   )
 }

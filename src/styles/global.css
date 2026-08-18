@@ -3,40 +3,40 @@
 
 /* Fuentes locales */
 @font-face {
-  font-family: 'Kalam';
-  src: url('/fonts/Kalam-Light.woff2') format('woff2');
+  font-family: "Kalam";
+  src: url("/fonts/Kalam-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kalam';
-  src: url('/fonts/Kalam-Regular.woff2') format('woff2');
+  font-family: "Kalam";
+  src: url("/fonts/Kalam-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kalam';
-  src: url('/fonts/Kalam-Bold.woff2') format('woff2');
+  font-family: "Kalam";
+  src: url("/fonts/Kalam-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Patrick Hand';
-  src: url('/fonts/PatrickHand-Regular.woff2') format('woff2');
+  font-family: "Patrick Hand";
+  src: url("/fonts/PatrickHand-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Caveat';
-  src: url('/fonts/Caveat-VariableFont_wght.woff2') format('woff2');
+  font-family: "Caveat";
+  src: url("/fonts/Caveat-VariableFont_wght.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
@@ -48,62 +48,29 @@
   --font-write: "Patrick Hand", cursive;
   --font-script: "Caveat", cursive;
 
-  /* Nombres profesionales de colores basados en tu paleta */
-  --color-bg-main: #FBF7EC;
-  /* Papel principal */
-  --color-bg-surface: #F6F0DD;
-  /* Tarjetas y superficies */
-  --color-border-grid: #C9D8E8;
-  /* Líneas de cuadrícula */
-  --color-border-margin: #E0847A;
-  /* Línea de margen de cuaderno */
-  --color-text-main: #2E3D63;
-  /* Texto principal / Tinta */
-  --color-text-muted: #42537D;
-  /* Texto secundario */
-  --color-text-secondary: #4A4A46;
-  /* Notas a lápiz */
+  --color-bg-main: #fbf7ec;
+  --color-bg-surface: #f6f0dd;
+  --color-border-grid: #c9d8e8;
+  --color-border-margin: #e0847a;
+  --color-text-main: #2e3d63;
+  --color-text-muted: #42537d;
+  --color-text-secondary: #4a4a46;
 
-  --color-accent-red: #C4453B;
-  --color-accent-green: #3E7A4E;
-  --color-accent-amber: #C67B1E;
-  --color-accent-teal: #2C8B84;
-  --color-accent-yellow: #F5E27A;
+  --color-accent-red: #c4453b;
+  --color-accent-green: #3e7a4e;
+  --color-accent-amber: #c67b1e;
+  --color-accent-teal: #2c8b84;
+  --color-accent-yellow: #f5e27a;
 }
 
 @layer base {
   body {
-    @apply font-write text-[19px] leading-relaxed text-text-main antialiased relative min-h-screen;
+    @apply font-write text-text-main relative min-h-screen text-[19px] leading-relaxed antialiased;
     background-color: var(--color-bg-main);
     background-image:
       linear-gradient(var(--color-border-grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--color-border-grid) 1px, transparent 1px);
     background-size: 26px 26px;
-  }
-
-  /* Personalización del plugin Prose (@tailwindcss/typography) para que combine con el estilo de libreta */
-  .prose {
-    --tw-prose-body: var(--color-text-main);
-    --tw-prose-headings: var(--color-text-main);
-    --tw-prose-links: var(--color-accent-teal);
-    --tw-prose-bold: var(--color-text-main);
-    --tw-prose-counters: var(--color-text-muted);
-    --tw-prose-bullets: var(--color-accent-teal);
-    --tw-prose-hr: var(--color-border-margin);
-    --tw-prose-quotes: var(--color-text-secondary);
-    --tw-prose-quote-borders: var(--color-border-margin);
-    --tw-prose-code: var(--color-accent-red);
-    --tw-prose-pre-code: #fbf7ec;
-    --tw-prose-pre-bg: var(--color-text-main);
-    font-family: var(--font-write);
-    font-size: 1.15rem;
-  }
-
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4 {
-    font-family: var(--font-hand);
   }
 }
 
@@ -119,18 +86,18 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--color-border-grid, #C9D8E8);
+  background-color: var(--color-border-grid, #c9d8e8);
   /* Color suave de las líneas */
   border-radius: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-border-margin, #E0847A);
+  background-color: var(--color-border-margin, #e0847a);
   /* Cambia al color del margen al pasar el mouse */
 }
 
 /* Soporte para Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border-grid, #C9D8E8) transparent;
+  scrollbar-color: var(--color-border-grid, #c9d8e8) transparent;
 }

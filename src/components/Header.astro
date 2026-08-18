@@ -1,10 +1,118 @@
 ---
+
 ---
 
-<header class="sticky top-0 z-50 p-6 flex items-center justify-between flex-wrap gap-4 bg-bg-main/90 backdrop-blur-sm border-b border-border-grid">
-  <a href="/dashboard" class="flex items-center">
-    <div class="font-script font-bold text-[30px] leading-none -rotate-1 text-text-main">
-      OWASP
-    </div>
-  </a>
+<header
+  class="bg-bg-main/90 border-border-grid sticky top-0 z-40 flex items-center justify-between border-b p-4 backdrop-blur-sm lg:px-6"
+>
+  <div class="flex items-center gap-3">
+    <!-- Botón Menú Lateral (Móvil) -->
+    <button
+      id="toggle-sidebar"
+      type="button"
+      aria-label="Abrir navegación"
+      class="text-text-main border-border-grid rounded-md border p-2 transition-colors hover:bg-black/5 lg:hidden dark:hover:bg-white/5"
+    >
+      <svg
+        class="h-5 w-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <a href="/dashboard" class="flex items-center">
+      <div
+        class="font-script text-text-main -rotate-1 text-[28px] leading-none font-bold lg:text-[30px]"
+      >
+        OWASP
+      </div>
+    </a>
+  </div>
+
+  <!-- Botón Tabla de Contenidos (Móvil) -->
+  <button
+    id="toggle-toc"
+    type="button"
+    aria-label="Abrir tabla de contenidos"
+    class="text-text-main border-border-grid flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-semibold transition-colors hover:bg-black/5 lg:hidden dark:hover:bg-white/5"
+  >
+    <span>En este artículo</span>
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
 </header>
+
+<!-- Overlay para los drawers móviles -->
+<div
+  id="mobile-backdrop"
+  class="pointer-events-none fixed inset-0 z-40 bg-black/50 opacity-0 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
+>
+</div>
+
+<script>
+  import { $ } from "@/lib/dom";
+
+  const sidebar = $<HTMLElement>("#sidebar-drawer");
+  const toc = $<HTMLElement>("#toc-drawer");
+  const backdrop = $<HTMLElement>("#mobile-backdrop");
+
+  const toggleSidebarBtn = $<HTMLElement>("#toggle-sidebar");
+  const toggleTocBtn = $<HTMLElement>("#toggle-toc");
+  const closeSidebarBtn = $<HTMLElement>("#close-sidebar");
+  const closeTocBtn = $<HTMLElement>("#close-toc");
+
+  function openSidebar() {
+    closeToc();
+    sidebar?.classList.remove("-translate-x-full");
+    backdrop?.classList.remove("opacity-0", "pointer-events-none");
+  }
+
+  function closeSidebar() {
+    sidebar?.classList.add("-translate-x-full");
+    if (toc?.classList.contains("-translate-y-full")) {
+      backdrop?.classList.add("opacity-0", "pointer-events-none");
+    }
+  }
+
+  function openToc() {
+    closeSidebar();
+    toc?.classList.remove(
+      "-translate-y-full",
+      "opacity-0",
+      "pointer-events-none",
+    );
+    backdrop?.classList.remove("opacity-0", "pointer-events-none");
+  }
+
+  function closeToc() {
+    toc?.classList.add("-translate-y-full", "opacity-0", "pointer-events-none");
+    backdrop?.classList.add("opacity-0", "pointer-events-none");
+  }
+
+  toggleSidebarBtn?.addEventListener("click", openSidebar);
+  closeSidebarBtn?.addEventListener("click", closeSidebar);
+  toggleTocBtn?.addEventListener("click", () => {
+    if (toc?.classList.contains("-translate-y-full")) {
+      openToc();
+    } else {
+      closeToc();
+    }
+  });
+  closeTocBtn?.addEventListener("click", closeToc);
+  backdrop?.addEventListener("click", () => {
+    closeSidebar();
+    closeToc();
+  });
+</script>

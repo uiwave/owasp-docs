@@ -1,32 +1,36 @@
 ---
-import { getCollection, render } from 'astro:content';
-import DocsLayout from '../../layouts/DocsLayout.astro';
+import { getCollection, render } from "astro:content";
+import DocsLayout from "@/layouts/DocsLayout.astro";
 
 export async function getStaticPaths() {
-  const docs = await getCollection('docs');
+  const docs = await getCollection("docs");
 
   if (!docs || docs.length === 0) {
     return [];
   }
 
-  const cleanSegment = (segment: string) => segment.replace(/^\d+-/, '');
+  const cleanSegment = (segment: string) => segment.replace(/^\d+-/, "");
 
-  const getCleanSlug = (entryKey: string) => 
-    entryKey.replace(/\.mdx?$/, '').split('/').map(cleanSegment).join('/');
+  const getCleanSlug = (entryKey: string) =>
+    entryKey
+      .replace(/\.mdx?$/, "")
+      .split("/")
+      .map(cleanSegment)
+      .join("/");
 
   // 1. Rutas para cada archivo Markdown
   const docPaths = docs.map((doc) => {
     const cleanSlug = getCleanSlug(doc.id);
     return {
       params: { slug: cleanSlug },
-      props: { doc, isFolderRedirect: false, redirectTo: '' },
+      props: { doc, isFolderRedirect: false, redirectTo: "" },
     };
   });
 
   // 2. Rutas de carpetas (Redirecciones)
   const folders = new Set<string>();
   docs.forEach((doc) => {
-    const parts = doc.id.split('/');
+    const parts = doc.id.split("/");
     if (parts.length > 1) {
       folders.add(parts[0]);
     }
@@ -41,7 +45,11 @@ export async function getStaticPaths() {
 
     return {
       params: { slug: cleanFolder },
-      props: { doc: null, isFolderRedirect: true, redirectTo: `/docs/${firstDocCleanSlug}` },
+      props: {
+        doc: null,
+        isFolderRedirect: true,
+        redirectTo: `/${firstDocCleanSlug}`,
+      },
     };
   });
 
@@ -57,12 +65,16 @@ if (isFolderRedirect && redirectTo) {
 
 // 2. Control de seguridad para TypeScript si doc llega nulo por alguna razón
 if (!doc) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 // 3. Ahora TypeScript garantiza al 100% que `doc` no es null
 const { Content, headings } = await render(doc);
-const cleanSlug = doc.id.replace(/\.mdx?$/, '').split('/').map((s: string) => s.replace(/^\d+-/, '')).join('/');
+const cleanSlug = doc.id
+  .replace(/\.mdx?$/, "")
+  .split("/")
+  .map((s: string) => s.replace(/^\d+-/, ""))
+  .join("/");
 ---
 
 <DocsLayout title={doc.data.title} currentSlug={cleanSlug} headings={headings}>
